@@ -22,19 +22,25 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <!-- <HelloWorld/> -->
+      <Home/>
+      <!-- <Notes/> -->
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+// import HelloWorld from './components/HelloWorld';
+import Home from './components/Home';
+// import Notes from './components/Notes';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    // HelloWorld,
+    Home,
+    // Notes
   },
 
   data: () => ({

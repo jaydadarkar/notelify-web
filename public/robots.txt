@@ -1,0 +1,7 @@
+User-agent: *
+Disallow:/account
+Noindex:/account
+Disallow:/login
+Noindex:/login
+Disallow:/register
+Noindex:/register
