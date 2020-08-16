@@ -1,50 +1,32 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="#009688"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-icon>mdi-pencil</v-icon>
-      <v-btn
-        href="https://www.notelify.co/"
-        target="_blank"
-        text
-      >
-        <span>Notelify</span>
-      </v-btn>
-
-      </div>
-
-      <v-spacer></v-spacer>
-
-    </v-app-bar>
-
-    <v-main>
-      <!-- <HelloWorld/> -->
-      <Home/>
-      <!-- <Notes/> -->
-    </v-main>
-  </v-app>
+  <div id="app">
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div> -->
+    <router-view/>
+  </div>
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld';
-import Home from './components/Home';
-// import Notes from './components/Notes';
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: 'App',
+#nav {
+  padding: 30px;
 
-  components: {
-    // HelloWorld,
-    Home,
-    // Notes
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  data: () => ({
-    //
-  }),
-};
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>

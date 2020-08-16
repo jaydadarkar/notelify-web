@@ -42,6 +42,9 @@
                     ></v-col>
                     <v-col
                       cols="12"
+                    ></v-col>
+                    <v-col
+                      cols="12"
                     >
                       <v-text-field
                         full-width
@@ -74,7 +77,7 @@
                         <v-btn @click="login" block class="mx-auto" color="#009688"><span class="text-white">Sign In</span></v-btn>
                         </v-col>
                         <v-col col=6>
-                        <v-btn @click="register" class="mx-auto" color="#009688"><span class="text-white">Register</span></v-btn>
+                        <v-btn @click="register" block class="mx-auto" color="#009688"><span class="text-white">Register</span></v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -85,7 +88,7 @@
             <v-col
             cols=12
             md=7
-            class="bg-green-sm"
+            class="bg-green-sm text-left"
             >
             <h6 class="heading-1">Cross Platform</h6>
             <h1 class="heading-2">Notes App</h1>
@@ -106,26 +109,27 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="teal"
+          color="white"
           text
           v-bind="attrs"
           @click="snackbar = false"
         >
-          Close
+          <v-icon>
+            mdi-close
+          </v-icon>
         </v-btn>
       </template>
     </v-snackbar>
           </v-col>
         </v-row>
     </v-container>
-    <br />
-    <hr class="footer-breaker"/>
     <p class="footer">Copyrights &copy; 2020 | Notelify.</p>
   </v-app>
 </template>
 
 <script>
 import { auth } from '../firebase'
+import router from '../router/index'
 
 export default {
     props: {
@@ -152,7 +156,7 @@ export default {
       login(){
         if(this.email.length > 0 && this.password.length > 0){ 
         let user = auth.signInWithEmailAndPassword(this.email,this.password);
-        console.log(user);
+        router.push({path: 'Notes', params: {user: user}});
         }
         else{
           this.snackbar_text = "Email Id & Password Is Required.";
@@ -173,7 +177,7 @@ export default {
   }
 </script>
 
-<style scoped>
+<style>
 #home .v-navigation-drawer__border {
   display: none
 }
@@ -186,7 +190,7 @@ export default {
 .home{
   background-image: url('../assets/cross-platform-notes-keeping-app.jpg');
   background-size: cover;
-  height: 608px;
+  height: 620px;
 }
 .heading-1{
   color: #444;
@@ -214,12 +218,14 @@ export default {
   bottom: 0px;
   text-align: center;
   color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px !important;
 }
 .footer-breaker{
   width: 25%;
   margin-left: 37%;
 }
-@media screen and (max-width: 992px){
+@media screen and (max-width: 960px){
   .heading-1, .heading-2, .paragraph{
     color: white;
     padding-left: 1rem;
