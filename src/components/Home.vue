@@ -71,10 +71,10 @@
                       <br />
                       <v-row>
                         <v-col col=6>
-                        <v-btn block class="mx-auto" color="#009688"><span class="text-white">Sign In</span></v-btn>
+                        <v-btn @click="login" block class="mx-auto" color="#009688"><span class="text-white">Sign In</span></v-btn>
                         </v-col>
                         <v-col col=6>
-                        <v-btn block class="mx-auto" color="#009688"><span class="text-white">Register</span></v-btn>
+                        <v-btn @click="register" class="mx-auto" color="#009688"><span class="text-white">Register</span></v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -85,6 +85,7 @@
             <v-col
             cols=12
             md=7
+            class="bg-green-sm"
             >
             <h6 class="heading-1">Cross Platform</h6>
             <h1 class="heading-2">Notes App</h1>
@@ -95,12 +96,38 @@
             <p class="paragraph">and the Web.</p>
             </v-col>
         </v-row>
+        <v-row>
+          <v-col
+          cols=12>
+          <v-snackbar
+      v-model="snackbar"
+    >
+      {{ snackbar_text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="teal"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+          </v-col>
+        </v-row>
     </v-container>
+    <br />
+    <hr class="footer-breaker"/>
+    <p class="footer">Copyrights &copy; 2020 | Notelify.</p>
   </v-app>
 </template>
 
 <script>
-  export default {
+import { auth } from '../firebase'
+
+export default {
     props: {
       source: String,
     },
@@ -109,6 +136,8 @@
       email: '',
       password: '',
       show1: false,
+      snackbar: false,
+      snackbar_text: "",
       emailRules: [
         v => !!v || 'E-mail Id is required',
         v => /.+@.+/.test(v) || 'E-mail Id is invalid',
@@ -119,10 +148,32 @@
           emailMatch: () => ('The email and password you entered don\'t match'),
         },      
     }),
+    methods: {
+      login(){
+        if(this.email.length > 0 && this.password.length > 0){ 
+        let user = auth.signInWithEmailAndPassword(this.email,this.password);
+        console.log(user);
+        }
+        else{
+          this.snackbar_text = "Email Id & Password Is Required.";
+          this.snackbar = true;
+        }
+      },
+      register(){
+        if(this.email.length > 0 && this.password.length > 0){ 
+        let user = auth.signInWithEmailAndPassword(this.email,this.password);
+        console.log(user);
+        }
+        else{
+          this.snackbar_text = "Email Id & Password Is Required.";
+          this.snackbar = true;
+        }
+      }
+    },
   }
 </script>
 
-<style>
+<style scoped>
 #home .v-navigation-drawer__border {
   display: none
 }
@@ -159,11 +210,28 @@
   color: #444;
   margin: 0px !important;
 }
-
+.footer{
+  bottom: 0px;
+  text-align: center;
+  color: #fff;
+}
+.footer-breaker{
+  width: 25%;
+  margin-left: 37%;
+}
 @media screen and (max-width: 992px){
   .heading-1, .heading-2, .paragraph{
     color: white;
     padding-left: 1rem;
+  }
+  .heading-1{
+      padding-top: 1rem;
+  }
+  .bg-green-sm{
+    background-color: #009688;
+  }
+  .footer,.footer-breaker{
+    display: none;
   }
 }
 </style>
